@@ -1,12 +1,12 @@
 class Solution:
     def wordBreak(self, s: str, wordDict: List[str]) -> bool:
-        # memorize result
-        dp = [False] * (len(s)+1)
-        dp[0] = True
+        dp = [False] * (len(s)+1) # 動的計画法のメモのため
+        dp[0] = True # len(s)が0なら必ず分割可能
         
-        for start_i in range(len(s)):
-            for end_i in range(start_i+1, len(s)):
-                if s[start_i] and s[start_i:end_i] in wordDict:
-                    dp[end_i] = True
+        for i in range(1, len(s)+1):
+            for j in range(i):
+                if dp[j] and s[j:i] in wordDict:
+                    dp[i] = True
                     break
+
         return dp[len(s)]
